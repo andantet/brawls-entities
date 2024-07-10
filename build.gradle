@@ -1,0 +1,87 @@
+//file:noinspection All
+
+plugins {
+	id "fabric-loom" version "1.7-SNAPSHOT"
+	id "org.jetbrains.kotlin.jvm"
+	id "maven-publish"
+}
+
+version = mod_version
+group = maven_group
+
+base {
+	archivesName = mod_id
+}
+
+repositories {
+	maven {
+		name = "Andante"
+		url  = "https://maven.andante.dev/releases/"
+	}
+
+	maven {
+		name = "Nucleoid"
+		url  = "https://maven.nucleoid.xyz/"
+	}
+
+	maven {
+		name = "Sonatype"
+		url  = "https://oss.sonatype.org/content/repositories/snapshots/"
+	}
+
+	maven {
+		name = "Modrinth"
+		url  = "https://api.modrinth.com/maven/"
+	}
+
+	maven {
+		name = "Noxcrew"
+		url  = "https://maven.noxcrew.com/public/"
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:$minecraft_version"
+	mappings "net.fabricmc:yarn:$minecraft_version+build.$yarn_build:v2"
+	modImplementation "net.fabricmc:fabric-loader:$loader_version"
+
+	include modImplementation ("net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version+kotlin.$kotlin_version")
+
+	modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
+
+	include modImplementation ("dev.andante:audience:$audience_version")
+
+	include modImplementation ("net.mcbrawls:brawls-api:$brawls_api_version") {
+		exclude group: "org.slf4j"
+	}
+
+	include modImplementation ("eu.pb4:polymer-core:$polymer_version")
+}
+
+processResources {
+	inputs.property "version", mod_version
+	filteringCharset "UTF-8"
+
+	filesMatching("fabric.mod.json") {
+		expand "version": mod_version
+	}
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/${mod_id}.accesswidener")
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${archivesBaseName}" }
+	}
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+	kotlinOptions {
+		freeCompilerArgs += [
+				"-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+				"-opt-in=kotlinx.coroutines.DelicateCoroutinesApi",
+		]
+	}
+}
