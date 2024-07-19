@@ -61,7 +61,7 @@ open class PlayerAttachedTextDisplayEntity(
             }
 
             // verify riding
-            if (!hasVehicle()) {
+            if (vehicle != player) {
                 startRiding(player, true)
             }
 
