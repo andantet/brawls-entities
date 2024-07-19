@@ -46,6 +46,10 @@ open class PlayerAttachedTextDisplayEntity(
     override fun tick() {
         super.tick()
 
+        if (isRemoved) {
+            return
+        }
+
         val player = serverPlayer
         if (player == null) {
             discard()
@@ -53,6 +57,7 @@ open class PlayerAttachedTextDisplayEntity(
             // verify same world
             if (player.world != world) {
                 teleport(player.serverWorld, player.x, player.y, player.z, emptySet(), 0.0f, 0.0f)
+                return
             }
 
             // verify riding
@@ -75,8 +80,8 @@ open class PlayerAttachedTextDisplayEntity(
         }
     }
 
-    override fun getPolymerEntityType(player: ServerPlayerEntity): EntityType<*> {
-        return EntityType.TEXT_DISPLAY
+    override fun getPolymerEntityType(viewer: ServerPlayerEntity): EntityType<*> {
+        return if (viewer.hardReference == player) EntityType.MARKER else EntityType.TEXT_DISPLAY
     }
 
     fun interface TextSupplier {
