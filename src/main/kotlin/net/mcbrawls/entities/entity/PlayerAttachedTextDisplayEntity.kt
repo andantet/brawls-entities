@@ -81,7 +81,7 @@ open class PlayerAttachedTextDisplayEntity(
     }
 
     override fun getPolymerEntityType(viewer: ServerPlayerEntity): EntityType<*> {
-        return if (viewer.hardReference == player) EntityType.MARKER else EntityType.TEXT_DISPLAY
+        return EntityType.TEXT_DISPLAY
     }
 
     fun interface TextSupplier {
