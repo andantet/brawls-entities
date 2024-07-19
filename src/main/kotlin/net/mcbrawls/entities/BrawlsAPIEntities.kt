@@ -2,6 +2,7 @@ package net.mcbrawls.entities
 
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils
 import net.mcbrawls.entities.entity.DisplayedBlockEntity
+import net.mcbrawls.entities.entity.PlayerAttachedTextDisplayEntity
 import net.mcbrawls.entities.entity.TemporaryTextDisplayEntity
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
@@ -23,8 +24,19 @@ object BrawlsAPIEntities {
         "temporary_text_display",
         EntityType.Builder.create(::TemporaryTextDisplayEntity, SpawnGroup.MISC)
             .dimensions(0.0f, 0.0f)
+            .disableSaving()
             .maxTrackingRange(2)
-            .trackingTickInterval(10)
+            .trackingTickInterval(1)
+    )
+
+    val PLAYER_ATTACHED_TEXT_DISPLAY = register(
+        "player_attached_text_display",
+        EntityType.Builder.create(::PlayerAttachedTextDisplayEntity, SpawnGroup.MISC)
+            .dimensions(0.0f, 0.0f)
+            .disableSaving()
+            .disableSummon()
+            .maxTrackingRange(2)
+            .trackingTickInterval(1)
     )
 
     fun <E : Entity> register(id: String, builder: EntityType.Builder<E>): EntityType<E> {

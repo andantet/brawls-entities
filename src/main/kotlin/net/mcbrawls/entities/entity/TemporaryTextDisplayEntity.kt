@@ -1,12 +1,15 @@
 package net.mcbrawls.entities.entity
 
+import eu.pb4.polymer.core.api.entity.PolymerEntity
 import net.mcbrawls.entities.entity.TemporaryTextDisplayEntity.TextSupplier
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.decoration.DisplayEntity.TextDisplayEntity
+import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
+import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 
-class TemporaryTextDisplayEntity(
+open class TemporaryTextDisplayEntity(
     /**
      * Provides the text component for this text display.
      */
@@ -19,20 +22,14 @@ class TemporaryTextDisplayEntity(
 
     type: EntityType<*>,
     world: World
-) : TextDisplayEntity(type, world) {
-    constructor(
-        /**
-         * The text to display on this entity.
-         */
-        text: Text,
+) : TextDisplayEntity(type, world), PolymerEntity {
+    constructor(type: EntityType<*>, world: World) : this(TextSupplier { entity, _ -> entity.displayName ?: Text.literal(entity.nameForScoreboard) }, DEFAULT_MAX_AGE, type, world)
 
-        maxAge: Int = DEFAULT_MAX_AGE,
+    private var initialPosition: Vec3d? = null
 
-        type: EntityType<*>,
-        world: World
-    ) : this(TextSupplier { text }, maxAge, type, world)
-
-    constructor(type: EntityType<*>, world: World) : this(Text.literal("Temp"), DEFAULT_MAX_AGE, type, world)
+    init {
+        setBillboardMode(BillboardMode.CENTER)
+    }
 
     override fun tick() {
         super.tick()
@@ -40,16 +37,30 @@ class TemporaryTextDisplayEntity(
         if (age > maxAge) {
             discard()
         } else {
-            val text = textSupplier.getText(age)
+            val initialPosition: Vec3d = initialPosition ?: let {
+                initialPosition = pos
+                pos
+            }
+
+            val percentage = age / maxAge.toFloat()
+            val yOffset = MAX_Y_OFFSET * percentage
+            setPosition(initialPosition.add(0.0, yOffset, 0.0))
+
+            val text = textSupplier.getText(this, age)
             setText(text)
         }
     }
 
+    override fun getPolymerEntityType(player: ServerPlayerEntity): EntityType<*> {
+        return EntityType.TEXT_DISPLAY
+    }
+
     fun interface TextSupplier {
-        fun getText(age: Int): Text
+        fun getText(entity: TemporaryTextDisplayEntity, age: Int): Text
     }
 
     companion object {
         const val DEFAULT_MAX_AGE: Int = 20
+        const val MAX_Y_OFFSET: Double = 0.25
     }
 }

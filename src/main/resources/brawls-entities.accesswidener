@@ -9,3 +9,4 @@ transitive-accessible method net/minecraft/entity/decoration/InteractionEntity s
 transitive-accessible method net/minecraft/entity/decoration/InteractionEntity setInteractionHeight (F)V
 transitive-accessible method net/minecraft/entity/decoration/InteractionEntity setResponse (Z)V
 transitive-accessible method net/minecraft/entity/decoration/DisplayEntity$TextDisplayEntity setBackground (I)V
+transitive-accessible method net/minecraft/entity/decoration/DisplayEntity setBillboardMode (Lnet/minecraft/entity/decoration/DisplayEntity$BillboardMode;)V
