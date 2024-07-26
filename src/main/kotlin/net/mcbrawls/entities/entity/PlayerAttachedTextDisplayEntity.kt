@@ -51,7 +51,7 @@ open class PlayerAttachedTextDisplayEntity(
         }
 
         val player = serverPlayer
-        if (player == null) {
+        if (player == null || player.isRemoved) {
             discard()
         } else {
             // verify same world
