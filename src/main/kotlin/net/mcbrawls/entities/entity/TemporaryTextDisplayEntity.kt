@@ -46,8 +46,12 @@ open class TemporaryTextDisplayEntity(
             val yOffset = MAX_Y_OFFSET * percentage
             setPosition(initialPosition.add(0.0, yOffset, 0.0))
 
-            val text = textSupplier.getText(this, age)
-            setText(text)
+            try {
+                val text = textSupplier.getText(this, age)
+                setText(text)
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+            }
         }
     }
 

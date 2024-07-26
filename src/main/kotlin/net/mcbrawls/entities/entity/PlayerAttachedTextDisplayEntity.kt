@@ -65,8 +65,12 @@ open class PlayerAttachedTextDisplayEntity(
                 startRiding(player, true)
             }
 
-            val text = textSupplier.getText(player, age)
-            setText(text)
+            try {
+                val text = textSupplier.getText(player, age)
+                setText(text)
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+            }
         }
     }
 
