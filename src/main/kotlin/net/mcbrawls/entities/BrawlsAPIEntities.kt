@@ -35,8 +35,8 @@ object BrawlsAPIEntities {
             .dimensions(0.0f, 0.0f)
             .disableSaving()
             .disableSummon()
-            .maxTrackingRange(2)
-            .trackingTickInterval(1)
+            .maxTrackingRange(32)
+            .trackingTickInterval(10)
     )
 
     fun <E : Entity> register(id: String, builder: EntityType.Builder<E>): EntityType<E> {
