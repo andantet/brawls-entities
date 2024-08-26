@@ -21,7 +21,7 @@ open class PlayerAttachedTextDisplayEntity(
     /**
      * Provides the text component for this text display.
      */
-    private var textSupplier: TextSupplier,
+    var textSupplier: TextSupplier,
 
     /**
      * The offset from the top of the player's hitbox to display the entity.
