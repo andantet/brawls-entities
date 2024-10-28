@@ -1,7 +1,7 @@
 package net.mcbrawls.entities
 
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils
-import net.mcbrawls.entities.entity.DisplayedBlockEntity
+import net.mcbrawls.entities.entity.DisplayedModelEntity
 import net.mcbrawls.entities.entity.PlayerAttachedTextDisplayEntity
 import net.mcbrawls.entities.entity.TemporaryTextDisplayEntity
 import net.minecraft.entity.Entity
@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier
 object BrawlsAPIEntities {
     val DISPLAYED_BLOCK = register(
         "displayed_block",
-        EntityType.Builder.create(::DisplayedBlockEntity, SpawnGroup.MISC)
+        EntityType.Builder.create(::DisplayedModelEntity, SpawnGroup.MISC)
             .dimensions(0.0f, 0.0f)
             .maxTrackingRange(2)
             .trackingTickInterval(10)
