@@ -9,6 +9,8 @@ import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
+import net.minecraft.registry.RegistryKey
+import net.minecraft.registry.RegistryKeys
 import net.minecraft.util.Identifier
 
 object BrawlsAPIEntities {
@@ -40,9 +42,9 @@ object BrawlsAPIEntities {
     )
 
     fun <E : Entity> register(id: String, builder: EntityType.Builder<E>): EntityType<E> {
-        val identifier = Identifier.of("brawls", id)
-        val type = builder.build(identifier.toString())
+        val key = RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("brawls", id))
+        val type = builder.build(key)
         PolymerEntityUtils.registerType(type)
-        return Registry.register(Registries.ENTITY_TYPE, identifier, type)
+        return Registry.register(Registries.ENTITY_TYPE, key, type)
     }
 }

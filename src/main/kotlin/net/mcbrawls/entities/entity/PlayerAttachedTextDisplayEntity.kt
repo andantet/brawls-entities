@@ -11,6 +11,7 @@ import net.minecraft.text.Text
 import net.minecraft.util.math.AffineTransformation
 import net.minecraft.world.World
 import org.joml.Vector3f
+import xyz.nucleoid.packettweaker.PacketContext
 
 open class PlayerAttachedTextDisplayEntity(
     /**
@@ -56,7 +57,7 @@ open class PlayerAttachedTextDisplayEntity(
         } else {
             // verify same world
             if (player.world != world) {
-                teleport(player.serverWorld, player.x, player.y, player.z, emptySet(), 0.0f, 0.0f)
+                teleport(player.serverWorld, player.x, player.y, player.z, emptySet(), 0.0f, 0.0f, true)
                 return
             }
 
@@ -84,7 +85,7 @@ open class PlayerAttachedTextDisplayEntity(
         }
     }
 
-    override fun getPolymerEntityType(viewer: ServerPlayerEntity): EntityType<*> {
+    override fun getPolymerEntityType(packet: PacketContext): EntityType<*> {
         return EntityType.TEXT_DISPLAY
     }
 

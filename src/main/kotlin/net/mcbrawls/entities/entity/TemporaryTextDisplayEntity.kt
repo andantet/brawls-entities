@@ -8,6 +8,7 @@ import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
+import xyz.nucleoid.packettweaker.PacketContext
 
 open class TemporaryTextDisplayEntity(
     /**
@@ -55,7 +56,7 @@ open class TemporaryTextDisplayEntity(
         }
     }
 
-    override fun getPolymerEntityType(player: ServerPlayerEntity): EntityType<*> {
+    override fun getPolymerEntityType(packet: PacketContext): EntityType<*> {
         return EntityType.TEXT_DISPLAY
     }
 

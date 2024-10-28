@@ -9,10 +9,10 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
-import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.math.AffineTransformation
 import net.minecraft.world.World
 import org.joml.Vector3f
+import xyz.nucleoid.packettweaker.PacketContext
 
 open class DisplayedBlockEntity(type: EntityType<*>, world: World) : ItemDisplayEntity(type, world), PolymerEntity {
     var customModelData: Int = 0
@@ -61,7 +61,7 @@ open class DisplayedBlockEntity(type: EntityType<*>, world: World) : ItemDisplay
         }
     }
 
-    override fun getPolymerEntityType(player: ServerPlayerEntity): EntityType<*> {
+    override fun getPolymerEntityType(context: PacketContext): EntityType<*> {
         return EntityType.ITEM_DISPLAY
     }
 
