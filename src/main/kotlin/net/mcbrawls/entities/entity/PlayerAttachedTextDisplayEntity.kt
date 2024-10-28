@@ -57,7 +57,7 @@ open class PlayerAttachedTextDisplayEntity(
         } else {
             // verify same world
             if (player.world != world) {
-                teleport(player.serverWorld, player.x, player.y, player.z, emptySet(), 0.0f, 0.0f, false)
+                teleport(player.serverWorld, player.x, player.y, player.z, emptySet(), 0.0f, 0.0f, true)
                 return
             }
 

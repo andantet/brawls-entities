@@ -4,7 +4,6 @@ import eu.pb4.polymer.core.api.entity.PolymerEntity
 import net.mcbrawls.entities.entity.TemporaryTextDisplayEntity.TextSupplier
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.decoration.DisplayEntity.TextDisplayEntity
-import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
